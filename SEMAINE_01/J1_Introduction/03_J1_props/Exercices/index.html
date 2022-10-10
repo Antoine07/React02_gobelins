@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      .heading {
+        color: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { createRoot } = ReactDOM ;
+      const container = document.getElementById('root'); 
+      const root = createRoot(container); 
+
+      const MESSAGES = [
+        { message: "React JS" },
+        { message: "React Native" },
+        { message: "Angular" },
+        { message: "Symfony" },
+        { message: "MongoDB" },
+      ];
+
+      function Message({ message }) {
+        return <p>{message}</p>;
+      }
+
+      function Messages({ messages }) {
+        return (
+          <React.Fragment>
+            {
+              // Pour que les éléments frères puissent se mettre dans le DOM on crée un noeud virtuel avec React.Fragment
+              messages.map((m, i) => <Message key={i} message={m.message} />)
+            }
+          </React.Fragment>
+        )
+      }
+
+      function App({ messages }) {
+        return <Messages messages={messages} />;
+      }
+
+      // Rendu dans le DOM
+      root.render(<App messages={MESSAGES} />);
+    </script>
+  </body>
+</html>
