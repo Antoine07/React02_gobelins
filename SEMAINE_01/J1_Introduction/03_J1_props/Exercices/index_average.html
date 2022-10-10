@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+      .heading {
+        color: purple;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { createRoot } = ReactDOM;
+      const container = document.getElementById("root");
+      const root = createRoot(container);
+
+      const PRECISION = 10;
+
+      const students = [
+        { notes: [12, 11, 10], name: "Alan" },
+        { notes: [18, 10, 19], name: "Alice" },
+        { notes: [10, 9, 11], name: "Bernard" },
+        { notes: [11, 17, 19], name: "Sophie" },
+        { notes: [], name: "Phil" },
+      ];
+
+      function avg(notes) {
+        if (notes.length > 0) {
+          const sum = notes.reduce((acc, curr) => acc + curr);
+
+          return Math.floor((sum / notes.length) * PRECISION) / PRECISION;
+        }
+
+        return null;
+      }
+
+      // Composants
+      function App({ students }) {
+        return (
+          <div className="main">
+            {/* ne pas oublier la clé pour les composants mappés dans le DOM, React a besoin de les identifier */}
+            {students.map((student, i) => (
+              <Student key={i} student={student} />
+            ))}
+          </div>
+        );
+      }
+
+      // props.student <=> ({student}) assignation par décomposition dans les paramètres de la fonction
+      function Student({ student }) {
+        const { notes, name } = student;
+
+        return (
+          <p>
+            Name: {name} average: {avg(notes) || "pas de note"}
+          </p>
+        );
+      }
+
+      // Rendu dans le DOM
+      ReactDOM.render(
+        <App students={students} />,
+        document.getElementById("root")
+      );
+    </script>
+  </body>
+</html>
