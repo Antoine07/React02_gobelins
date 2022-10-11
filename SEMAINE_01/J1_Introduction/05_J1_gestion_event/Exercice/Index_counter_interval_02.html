@@ -37,7 +37,7 @@
     <div id="root"></div>
     <script type="text/babel">
       const { createRoot } = ReactDOM;
-      const { useState } = React;
+      const { useState, useEffect } = React;
       const container = document.getElementById("root");
       const root = createRoot(container);
       const TIME = 1000;
@@ -47,28 +47,32 @@
         const [count, setCount] = useState(0);
         const [active, setActive] = useState(true);
 
-        console.log(Math.random());
+        // le useEffect watch les changements du state count 
+        useEffect(() => {
+          if(active === true) clearTimeout(interval);
+          if(active === false) interval = setTimeout(() => setCount(count + 1), TIME);
+
+        }, [active, count]) // on regarde les states uniquement
 
         function handleStart(e){
-          clearInterval(interval);
-          interval = setInterval(() => {
-            // mise à jour forcée du render, mais attention ici on est dans une autre pile d'exécution
-            // initialement la valeur de count = 0 et restera à 0
-            setCount(count => count + 1); console.log("callback", Math.random(), count)}, TIME);
-          setActive(false);
-          // interval = setTimeout(()=> setCount(count + 1), TIME)
+         setActive(false);
         }
 
         function handleStope(e){
-          clearInterval(interval);
           setActive(true);
-          // setCount(0);
+        }
+
+        function handleReset(e){
+          setActive(true);
+          setCount(0);
+          clearTimeout(interval);
         }
       
         return (
           <React.Fragment>
             <button disabled={!active} onClick={handleStart} >START</button>
             <button disabled={active} onClick={handleStope}>STOP</button>
+            <button disabled={(!count > 0)} onClick={handleReset}>RESET</button>
             <p>{count}</p>
           </React.Fragment>
         );
