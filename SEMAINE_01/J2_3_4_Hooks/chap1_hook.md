@@ -325,7 +325,7 @@ Le code suivant permet de faire un conteneur qui ne crée pas d'élément HTML d
 
 ## 03 Exercice Calculator
 
-Reprendre l'exercice du Challenge avec uniquement les options suivante en utilisant un useReducer pour gérer l'état de vos states de votre composant. Le code sera à faire dans un fichier index.html comme d'habitude.
+Faire une petite calculatrice sans mémoire comme suit 
 
 ```txt
 
