@@ -21,6 +21,10 @@ Utilisez cette fois les dépendances suivantes :
 
 2. Styled Components (voir la documentation dans le dossier Supports_Styled_Components)
 
+```bash
+npm install styled-component
+```
+
 3. Dans l'offre des Hooks proposés par React vous utiliserez useReducer. Faite le code de cette partie dans le fichier Calculator.js
 
 Créez un champ de saisi fictif et 10 boutons de 0 à 9 pour afficher dans la partie "saisie" le nombre tapé. Créez les trois boutons suivants :
