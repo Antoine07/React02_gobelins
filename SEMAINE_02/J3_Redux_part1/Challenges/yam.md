@@ -99,20 +99,17 @@ root.render(
 Dans l'App.js vous pouvez maintenant gérer le chargement des composants comme suit :
 
 ```js
-<Routes>
-<Route path="/" element={<Navigation />}>
-    <Route index element={<Home />} />
-    <Route path="statistiques" element={<Statistiques />} />
 
-    {/* Using path="*"" means "match anything", so this route
-        acts like a catch-all for URLs that we don't have explicit
-        routes for. */}
-    <Route path="*" element={<NoMatch />} />
-</Route>
-</Routes>
+ <>
+      <Navigation />
+      <Routes>
+        <Route index path="/" element={<Home />} />
+        <Route path="/statistiques" element={<p>statistiques</p>} />
+        <Route path="*" element={<p>No match</p>} />
+      </Routes>
+    </>
 
 // le composant Navigation
-
 function Navigation() {
   return (
     <div>
