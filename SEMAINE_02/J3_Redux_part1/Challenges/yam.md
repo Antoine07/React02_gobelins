@@ -16,14 +16,14 @@ Si vous voulez, ce n'est pas obligatoire, plus de modernité dans votre approche
 npm install @reduxjs/toolkit
 ```
 
-Dans votre fichier Bootstrap (index.js) vous avez alors la possibilité de gérer vos reducers comme suit :
+Dans votre fichier Bootstrap (index.js), vous avez alors la possibilité de gérer vos reducers comme suit :
 
 ```js
 import { configureStore } from '@reduxjs/toolkit';
 import message from './store/reducers/yam';
 
 const store = configureStore({
-  reducers : { yam }
+  reducer : { yam }
 });
 ```
 Attention, si vous utilisez toolkit vous continuez à utiliser également react-redux pour lire le store (en tout cas pour l'instant) dans vos composants.
