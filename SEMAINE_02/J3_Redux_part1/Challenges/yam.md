@@ -43,7 +43,7 @@ L'application possède deux pages pour l'instant : la page Home qui permet de la
 Sur cette page vous avez un bouton pour lancer les dés aux nombres de 3. Un autre champ du formulaire permet de définir le nombre de fois que vous répétez l'expérience. Pour consuler les résultats un lien cliquable permet de voir la page des statistiques. Vous utiliserez les paramètres de react-router-dom de route pour afficher les résultats.
 
 ```txt
-[Jeu] [Description]
+[Home] [Statistiques]
 
 Nombre d'expérience : [100]
 
