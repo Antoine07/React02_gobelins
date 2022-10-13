@@ -1,18 +1,34 @@
-import { useSelector, useDispatch } from 'react-redux';
-import {set_count} from './store/actions/actions-types';
+import { Routes, Route, NavLink } from "react-router-dom";
+import Home from "./Home";
+
+function Navigation() {
+  return (
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/about">About</NavLink>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  );
+}
 
 function App() {
-  // lecture du store de la source de vérité read-only
-  const { messages } = useSelector( state => state.m );
-
-  // actions dispatch dans le reducer => newState 
-  const dispatch = useDispatch();
 
   return (
-    <div className="App">
-      <button onClick={() => dispatch(set_count())} > COUNT + 1 </button>
-      {messages.map((message, i) => <p key={i}>{message}</p>)}
-    </div>
+    <>
+      <Navigation />
+      <Routes>
+        <Route index path="/" element={<Home />} />
+        <Route path="/about" element={<p>About</p>} />
+        <Route path="*" element={<p>No match</p>} />
+      </Routes>
+    </>
   );
 }
 

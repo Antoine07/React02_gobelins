@@ -5,21 +5,25 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from "react-router-dom";
 
-// import reducer from './store/reducers/index';
 import message from './store/reducers/message';
 
 const store = configureStore({
-  reducers : { message }
+  reducer: {
+    message
+  }
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // Contextualise le store pour l'arbre React à l'aide du Provider 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
