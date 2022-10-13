@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
-import reducer from './store/reducers/index';
+// import reducer from './store/reducers/index';
+import message from './store/reducers/message';
 
-const store = createStore(reducer);
+const store = configureStore({
+  reducers : { message }
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // Contextualise le store pour l'arbre React à l'aide du Provider 
