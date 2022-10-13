@@ -48,8 +48,6 @@ Sur cette page vous avez un bouton pour lancer les dés aux nombres de 3. Un aut
 Nombre d'expérience : [100]
 
 [Lancer]
-
-[Resultat] 
 ```
 
 ## La page statistiques
