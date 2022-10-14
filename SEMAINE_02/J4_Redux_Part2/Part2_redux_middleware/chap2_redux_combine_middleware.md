@@ -51,16 +51,6 @@ const { a, b } = useSelector(state => {
 })
 ```
 
-## 01 Exercice d'application Dragon
-
-1. Reprendre le projet précédent sur les Dragons. Créez un reducer log il permettra de notifier la création et la suppression des dragons. Vous pouvez utiliser moment JS pour la gestion des dates dans votre partie log.
-
-2. Ajoutez un bouton permettant de supprimer tous les logs.
-
-3. Créez un nouveau reducer pour ajouter des chevaliers. Vous afficherez la liste des chevaliers à côté de la liste des dragons. Vous créez un nouveau champ sous le champ de saisi des dragons pour les chevaliers. Dans cette gestion vous mettrez en place l'ajout et la suppression des chevaliers.
-
-4. (facultatif) Mettez en place la possibilité d'associer un chevalier à un dragon. Un chevalier ne peut avoir au plus qu'un dragon.
-
 ## Middleware
 
 Les middlewares se trouvent, ensemble de fonction(s), entre l'envoie (dispatch) et les réduceurs (reducers). Nous pouvons donc techniquement modifier les actions distribuées avant qu'ils arrivent aux réduceurs, ou exécuter une fonctionnalités lors de ce processus.
@@ -105,7 +95,7 @@ const myFunc = a => b => a + b ;
 // Retournera 20
 myFunc(10)(10)
 ```
-## Exercice logs avec un middleware
+## Exemple logs avec un middleware
 
 Refactorez les logs en créant un middleware : middlewareLog. Vous pouvez créer une branch avec Git refactoring (facultatif). Lorsqu'on ajoute ou supprime un dragon et uniquement pour ces actions, notifiez le dans les logs à l'aide de votre middleware.
 
@@ -136,11 +126,9 @@ export const startCounter = () => {
 }
 ```
 
-## Exercice d'application (dans Dragon) Middleware Thunk
+## Exercice Chrono simple
 
-### Partie 1
-
-Mettez en place un chrono simple, créez un nouveau reducer, dans l'application Dragon que nous avons développé. N'utilisez pas pour l'instant le module thunk, nous allons essayer de mettre en évidence la problématique des actions asynchrones dans Redux. Théoriquement votre chrono ne marchera pas (...).
+Mettez en place un chrono simple, créez un nouveau reducer, dans votre application Counter. N'utilisez pas pour l'instant le module thunk, nous allons essayer de mettre en évidence la problématique des actions asynchrones dans Redux. Théoriquement votre chrono ne marchera pas (...).
 
 Dans le header de l'application:
 
@@ -148,9 +136,17 @@ Dans le header de l'application:
   [14] <-- secondes qui défilent
 ```
 
-### Partie 2
+## Exercice Dragons
 
-Installez le module puis mettre en place la configuration (voir plus bas). Et vérifiez maintenant que votre chrono fonctionne correctement.
+Créez un CRUD pour géré des Dragons (nom & age).
+
+Comptez dans le nombre de Dragon à l'aide d'un middleware.
+
+Placez un compteur asynchrone sur la page.
+
+Soit vous élaborez cet exercice avec Redux classiquement, soit vous utilisez les techniques toolkit redux que nous avons abordé.
+
+Installez :
 
 ```bash
 npm install redux-thunk
@@ -190,8 +186,3 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 ```
-
-### Partie 3
-
-Le compteur de notre chrono fonctionne maintenant à l'aide de Thunk middleware qui permet de gérer dans Redux les actions dispatchées de manière asynchrone.
-Trouvez un moyen de mettre un bouton permettant l'arrêt du chrono.
