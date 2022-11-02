@@ -1,5 +1,5 @@
 
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSlice, nanoid } from '@reduxjs/toolkit';
 const usersMongoose = {
     email: 'alan@alan.fr', password: '123'
 }
@@ -9,7 +9,7 @@ const usersMongoose = {
  */
 const user = createSlice({
     name: 'user',
-    initialState: { email: '', password: '', isLogin: false, count: 0 },
+    initialState: { email: '', password: '', isLogin: false, count: 0, result : [] },
     reducers: {
         checkUser: state => {
             const { email, password } = usersMongoose;
@@ -27,7 +27,17 @@ const user = createSlice({
         },
         logout : state =>{
             state.isLogin = false;
-        }
+        },
+        addText: {
+            reducer: (state, action) => {
+                state.result.push(action.payload)
+              },
+              prepare: (text) => {
+                const id = nanoid()
+                return { payload: { id, text } }
+              },
+            
+          },
     },
     extraReducers: {
 
@@ -45,4 +55,4 @@ export const store = configureStore({
     middleware: [],
 });
 
-export const { checkUser, setLogin, logout } = user.actions;
+export const { checkUser, setLogin, logout, addText } = user.actions;

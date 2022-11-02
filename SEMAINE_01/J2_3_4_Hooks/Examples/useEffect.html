@@ -51,8 +51,8 @@
         useEffect(() => {
           // la nouvelle valeur qui vient de changer
           console.log("count change", count);
-        
-        // fonction de nettoyage ou umount
+
+          // fonction de nettoyage ou umount
           return () => {
             // la valeur a changé on affiche l'ancienne valeur
             console.log("update/umount", count);
@@ -71,10 +71,24 @@
         );
       }
 
+      let interval = null;
       function App(props) {
+        const [count, setCount] = useState(0);
+
+        useEffect(()=> {    
+            if(count < 10 ){
+                interval = setTimeout(() => setCount(count + 1), 1000);
+
+                return;
+            }
+
+            clearTimeout(interval);
+        }, [count]);
+
         return (
           <div className="container ">
-            <Counter />
+            <p>{count}</p>
+            {(count < 10  && <Counter />) || <p>Dead</p>}
           </div>
         );
       }

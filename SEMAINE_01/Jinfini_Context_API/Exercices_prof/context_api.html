@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+
+        .principal {
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        // Create context React => faire passer le store il permettra de globaliser le store
+        const PostContext = React.createContext([]);
+
+        // useReducer 
+        // 1. Source de véritié
+        const initialState = {
+            posts : []
+        }
+
+        // 2. Reducer l'algorithmique de l'application 
+        const reducer = (state, action) =>{
+            switch(action.type){
+                case 'ADD_POST':
+                    
+                    return {
+                        ...state,
+                        posts : state.posts.concat(action.post)
+                    }
+                
+                case 'SHUFFLE':
+                    const posts = [ ...state.posts ];
+                    posts.sort(() => Math.random() - .5 ); // astuce qui joue sur l'algo de tri
+                    
+                    return {
+                        ...state,
+                        posts : posts
+                    }
+
+                default:
+                    return state;
+            }
+
+        }
+
+        // Provider
+        // rappel children permet de faire de la composition <PostProvider> ... </PostProvider>
+        // Dans le Provider on passe notre reducer 
+        const PostProvider = ({ children }) => {
+            const [state, dispatch] = React.useReducer(reducer, initialState);
+
+            return (
+                <PostContext.Provider value={[state, dispatch]}>
+                    {children}
+                </PostContext.Provider>
+            )
+        }
+
+        const Posts = ()  => {
+            // dans useContext on récupère le useReducer
+            const  [state, dispatch] = React.useContext(PostContext);
+
+            return(
+                <React.Fragment>
+                    <h1>Posts</h1>
+                    <div>
+                        <button onClick={() => dispatch({type : 'ADD_POST' , post : Math.random() }) }>Add post</button>
+                    </div>
+                    <div>
+                        <button onClick={() => dispatch({type : 'SHUFFLE' }) }>Shuffle</button>
+                    </div>
+                    { state.posts.length > 0 && (
+                        <ul>
+                            {state.posts.map((post, i) => <li key={i} >{post}</li>)}
+                        </ul>
+                    )}
+                </React.Fragment>
+            )
+        }
+
+        const App = () => {
+            const  [state, dispatch] = React.useContext(PostContext);
+
+            return (
+                <React.Fragment>
+                    <h1>Nombre de post(s) : {state.posts.length}</h1> 
+                    <Posts />
+                </React.Fragment>
+            )
+        };
+
+        const CONTAINER = document.getElementById('root');
+
+        ReactDOM.render(
+            <PostProvider>
+                <App />
+            </PostProvider>,
+            CONTAINER
+        );
+    </script>
+</body>
+
+</html>

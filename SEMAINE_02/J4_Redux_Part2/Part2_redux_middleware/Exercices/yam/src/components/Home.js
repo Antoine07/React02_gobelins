@@ -1,9 +1,19 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { addText } from '../store/index';
 
+function Home(props) {
+    const dispatch = useDispatch();
+    const { result } = useSelector(state => state.user);
 
-function Home(){
+    const handleMultiply = (e) => {
+        dispatch(addText("Bonjour"));
+    }
 
-    return(
-        <p>Home</p>
+    return (
+        <div>
+            <button onClick={handleMultiply}>Multiply</button>
+            {result.map((r, i) =><p key={i}> ID : {r.id} {r.text}</p>)}
+        </div>
     )
 }
 

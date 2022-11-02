@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <style>
+        .special {
+            margin-top: 20%;
+            text-align: center;
+            height: 50px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const time = 1000;
+        const container = document.getElementById('root');
+
+        const Counter = ({step}) => {
+            const [count, setCount] = React.useState(0); 
+
+            // attention a ne pas faire de count++ car la fonction setCount retourne une valeur qui sera prise comme mise à jour du state
+            const tick = () => setTimeout(() => setCount( (count + 1) % (step + 1) ),time);
+
+            tick();
+
+            return (
+                <p>Counter: {count }</p>
+            )
+        } 
+       
+        ReactDOM.render(
+            <Counter step={10} />,
+            container
+        );
+    </script>
+</body>
+</html>

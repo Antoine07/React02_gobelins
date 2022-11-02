@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React router-dom</title>
+    <!-- Note: When deploying to production, replace "development.js"
+         with "production.min.js" in each of the following tags -->
+
+    <!-- Load React and React DOM -->
+    <!-- See https://reactjs.org/docs/add-react-to-a-website.html to learn more -->
+    <script src="https://unpkg.com/react@>=16.8/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@>=16.8/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load history -->
+    <script src="https://unpkg.com/history@5/umd/history.development.js" crossorigin></script>
+
+    <!-- Load React Router and React Router DOM -->
+    <script src="https://unpkg.com/react-router@6/umd/react-router.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin></script>
+
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { BrowserRouter, Routes, Route, NavLink, useSearchParams, useParams } = ReactRouterDOM;
+
+
+        const Nav = () => {
+
+            return (
+                <nav>
+                    <ul>
+
+                        <li>
+                            <NavLink to="/post/1">
+                                post 1
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/post/3">
+                                post 3
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
+            )
+        }
+
+        const Post = () => {
+            const { postId } = useParams();
+            const [searchParams, setSearchParams] = useSearchParams();
+            console.log(searchParams.get('filter'));
+            return (
+                <div>
+                    <p>{postId}</p>
+                    <input
+                        value={searchParams.get("filter") || ""}
+                        onChange={event => {
+                            let filter = event.target.value;
+                            if (filter) {
+                                setSearchParams({ filter });
+                            } else {
+                                setSearchParams({});
+                            }
+                        }}
+                    />
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <React.Fragment>
+                <BrowserRouter>
+                    <Nav />
+                    <Routes>
+                        <Route path="/post/:postId" element={<Post />} />
+                    </Routes>
+                </BrowserRouter>
+            </React.Fragment>,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>

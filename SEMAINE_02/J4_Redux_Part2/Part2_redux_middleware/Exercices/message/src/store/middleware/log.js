@@ -3,11 +3,11 @@ import {SET_LOG} from '../constants/actions';
 export default store => next => action => {
     const state = store.getState(); 
 
-    console.log("before", state);
+    // console.log("before", state);
 
     const returnAction = next(action);
 
-    console.log("after", store.getState());
+    // console.log("after", store.getState());
 
     const { count } = store.getState().message;
 

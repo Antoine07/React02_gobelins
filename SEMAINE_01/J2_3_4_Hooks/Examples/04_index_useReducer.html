@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        // source de vérité ne pas toucher vous pouvez mettre autant de state que vous souhaitez
+        const initialState = { count: 0, number1: '' };
+
+        const reducer = (state, action) => {
+            switch (action.type) {
+                case 'INCREMENT':
+                    // le spread operator permet de mettre à jour le state, dans l'exemple suivant 
+                    // { ...{count : 0, message : ''} , count : 3 } => { count : 3, message : '' }
+                    return { ...state, count: state.count + action.step };
+                case 'DECREMENT':
+
+                    return { ...state, count: state.count - action.step };
+
+                case 'SET_NUMBER1':
+
+                    const { number1 } = action.payload;
+
+                    console.log(action)
+
+                    return {
+                        ...state,
+                        number1 : number1
+                    }
+
+                default:
+                    return state;
+            }
+        }
+        const Counter = () => {
+            // Lire le state et utilisez la fonction de dispatch qui va dispatcher une action dans le reducer 
+            // dans useReducer on passe le reducer (algorithmique) + initialState qui permet d'initialiser les valeurs du state
+            const [state, dispatch] = React.useReducer(reducer, initialState);
+
+            const step = 3;
+
+            const handleChange = e => {
+                const { name, value } = e.target;
+
+                const payload = { number1 : value }
+
+                dispatch({type : 'SET_NUMBER1', payload })
+            }
+ 
+            return (
+                <div style={{ display: "flex" }}>
+                    <div>
+                        <p>Counter {state.count}</p>
+                        {/* On dispatche une action dans le reducer */}
+                        <button onClick={() => dispatch({ type: 'DECREMENT', step: step })}>-</button>
+                        <button onClick={() => dispatch({ type: 'INCREMENT', step: step })}>+</button> 
+
+                        <p><input type="text" name="number" value={state.number1} onChange={handleChange} /></p>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <Counter />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>

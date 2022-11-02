@@ -106,7 +106,12 @@ Lorsque le compteur s'incrémente d'un nombre premier entre 1 et 10, à savoir :
 
 ## TP 02 (noté)
 
-Importez la dépendance suivante dans le projet :
+Terminez le projet avec GraphQL et React
+
+Importez la dépendance suivante dans le projet pour effectuer la requête sur le serveur appolo (Node/Express) 
+
+
+Côté React vous importez la dépendance.
 
 ```js
 import { useQuery, gql } from '@apollo/client';

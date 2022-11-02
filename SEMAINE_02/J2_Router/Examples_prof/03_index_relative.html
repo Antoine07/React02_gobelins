@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React router-dom</title>
+    <!-- Note: When deploying to production, replace "development.js"
+         with "production.min.js" in each of the following tags -->
+
+    <!-- Load React and React DOM -->
+    <!-- See https://reactjs.org/docs/add-react-to-a-website.html to learn more -->
+    <script src="https://unpkg.com/react@>=16.8/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@>=16.8/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load history -->
+    <script src="https://unpkg.com/history@5/umd/history.development.js" crossorigin></script>
+
+    <!-- Load React Router and React Router DOM -->
+    <script src="https://unpkg.com/react-router@6/umd/react-router.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js" crossorigin></script>
+
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { Routes, Route, BrowserRouter, NavLink, useParams, Navigate, Outlet } = ReactRouterDOM;
+
+        const Post = () => {
+            const { postId } = useParams();
+            console.log(postId);
+            return (
+                <div>
+                    <p>{postId}</p>
+                </div>
+            )
+        }
+
+        const Posts = () => {
+            const posts = [{ id: 1, title: "React" }, { id: 2, title: "Python" }, { id: 3, title: "PHP" }];
+
+            return (
+                <nav>
+                    {
+                        posts.map((post) => {
+                            const { id, title } = post;
+                            return (
+                                <li key={id}><NavLink to={{ pathname: `single/${id}` }}>{title}</NavLink></li>
+                            )
+                        })
+                    }
+                    <Outlet />
+                </nav>
+            )
+        }
+
+        const App = () => {
+
+            return (
+                <Routes>
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/category" element={<Navigate to="/home" />} />
+                    <Route path="/posts/*" element={<Posts />} >
+                        <Route path="single/:postId" element={<Post />} />
+                    </Route>
+                </Routes>);
+
+        };
+
+        const Home = () => {
+
+            return (
+                <nav>
+                    <li>
+                        <NavLink to="/posts">
+                            posts
+                        </NavLink>
+                    </li>
+
+                </nav>
+            )
+        }
+
+        const Nav = () => {
+
+            return (
+                <nav>
+                    <ul>
+                        <li>
+                            <NavLink to="/home">
+                                Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/category">
+                                Category
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
+            )
+        }
+
+        ReactDOM.render(
+            <BrowserRouter>
+                <Nav />
+                <App />
+            </BrowserRouter>
+            ,
+            document.getElementById('root')
+        );
+
+    </script>
+
+</body>
+
+</html>

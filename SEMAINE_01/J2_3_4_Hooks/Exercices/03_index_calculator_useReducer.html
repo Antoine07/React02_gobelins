@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const max_operation = 2;
+        const initialState = { result: 0, number1: '', number2: "", message: "", count: 0 };
+
+        const reducer = (state, action) => {
+            switch (action.type) {
+
+                case 'ADD':
+
+                    return { ...state, result: parseFloat(state.number1) + parseFloat(state.number2), count: state.count + 1 };
+                case 'MULT':
+
+                    return { ...state, result: parseFloat(state.number1) * parseFloat(state.number2), count: state.count + 1 };
+
+                case 'SET_NUMBER':
+                    const { name, value } = action.payload;
+
+                    return {
+                        ...state,
+                        [name]: value // [] permettent d'évaluer la variable name comme valeur de clé number1 et number2
+                    }
+
+                case "RESET":
+
+                    return {
+                        ...state,
+                        ...initialState
+                    }
+
+                case "MESSAGE":
+                    const { message } = action.payload;
+                    return {
+                        ...state,
+                        message // clé /valeur automatique
+                    }
+
+                default:
+                    return state;
+            }
+        }
+        const Calculator = () => {
+            const [state, dispatch] = React.useReducer(reducer, initialState);
+            const { number1, number2, result, count, message } = state;
+
+            const handleChange = e => {
+                const { name, value } = e.target;
+                const payload = { name: name, value: value };
+
+                dispatch({ type: 'SET_NUMBER', payload });
+            }
+
+            React.useEffect(() => {
+                if (count >= max_operation) {
+                    const payload = { message: `Vous avez dépassé ${count}` }
+                    dispatch({ type: "MESSAGE", payload });
+                }
+            }, [count])
+
+            return (
+                <div style={{ display: "flex" }}>
+                    <div>
+                        <p>Resultat {result}</p>
+                        { message && <p>{message}</p>}
+                        <p><input type="text" name="number1" value={number1} onChange={handleChange} /></p>
+                        <p><input type="text" name="number2" value={number2} onChange={handleChange} /></p>
+                        <button onClick={() => dispatch({ type: 'ADD' })}>+</button>
+                        <button onClick={() => dispatch({ type: 'MULT' })}>*</button>
+                        <button onClick={() => dispatch({ type: 'RESET' })}>reset</button>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <Calculator />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>

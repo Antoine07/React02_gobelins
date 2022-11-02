@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            const [active, setActive] = React.useState(false);
+            const [count, setCount] = React.useState(10);
+
+            React.useEffect(() => {
+
+                if (active && count > 0)
+                    setTimeout(() => {
+                        setCount(count - 1);
+                    }, 1000);
+
+                return () => {
+                    
+                    if (count === 1) {
+                        setActive(false);
+                        setCount(10);
+                    }
+                }
+            }, [count, active]);
+
+
+            return (
+                <div>
+                    {active === false && <button onClick={() => setActive(true)}>Go</button>}
+                    <p>{count}</p>
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>

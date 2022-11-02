@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        // constantes de l'application  
+        const precision = 10;
+        const floor = (num) => Math.floor(num * precision) / precision;
+        const max_operation = 2;
+        const normalize = (num) => parseFloat(num.replace(',', '.'));
+
+        const Calculator = (props) => {
+            const [number1, setNumber1] = React.useState("");
+            const [number2, setNumber2] = React.useState("");
+            const [result, setResult] = React.useState("");
+            const [message, setMessage] = React.useState("");
+            const [count, setCount] = React.useState(0);
+            const [total, setTotal] = React.useState(0);
+
+            const handleChange = e => {
+                // value et name de l'input monté dans le DOM.
+                const { value, name, type } = e.target; // const value =  e.target.value
+                //  console.log(value, name, type);
+                if (name === 'number1') setNumber1(value);
+                if (name === 'number2') setNumber2(value);
+
+                setMessage("");
+            }
+
+            const add = () => {
+
+                let num1 = normalize(number1);
+                let num2 = normalize(number2);
+
+                if (isNaN(num1) || isNaN(num2)) {
+
+                    setMessage("Attention problème numérique");
+
+                    return;
+                }
+                setResult(floor(num1 + num2));
+                setNumber1("");
+                setNumber2("");
+
+                setCount(count + 1);
+            }
+
+            const mult = () => {
+
+                let num1 = normalize(number1);
+                let num2 = normalize(number2);
+
+                if (isNaN(num1) || isNaN(num2)) {
+
+                    setMessage("Attention problème numérique");
+
+                    return;
+                }
+                setResult(floor(num1 * num2));
+                setNumber1("");
+                setNumber2("");
+
+                setCount(count + 1);
+            }
+
+            React.useEffect(() => {
+                if (count >= max_operation) {
+                    // Fais de manière asynchrone ... 
+                    setMessage(`Vous avez fait encore ${count} et au total : ${count + total}`);
+                    setTotal(count + total);
+                    setCount(0);
+                }
+            }, [count]);
+
+            return (
+                <div>
+                    <p>Total: {total}</p>
+                    <p>Number1 : {number1}</p>
+                    <p>Number2 : {number2}</p>
+                    {result && (<p>{result}</p>)}
+                    {message && (<p>{message}</p>)}
+                    {/* value={number} ne doit pas être oublié, React doit avoir le controle total de l'élément HTML pour bien "fonctionner"*/}
+                    <p><input type="text" name="number1" value={number1} onChange={handleChange} /></p>
+                    <p><input type="text" name="number2" value={number2} onChange={handleChange} /></p>
+                    <p><button onClick={add} >Addition</button></p>
+                    <p><button onClick={mult} >Multiplication</button></p>
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <Calculator />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+
+</html>

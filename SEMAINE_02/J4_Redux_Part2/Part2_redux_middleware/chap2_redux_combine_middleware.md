@@ -135,6 +135,7 @@ Dans le header de l'application:
 ```txt
   [14] <-- secondes qui défilent
 ```
+Romain Bousquié
 
 ## Exercice Dragons
 

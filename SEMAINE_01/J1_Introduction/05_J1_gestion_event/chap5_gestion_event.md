@@ -109,5 +109,8 @@ Options possibles à notre exercice
 
 - Si vous avez le temps développer un compteur cyclique et un compteur binaire.
 
-![Counter](../images/button_counter.png)
+## 2. Exercice compteur de lettre 
 
+Réalisez le compteur de mot suivant :
+
+![props top/down](./images/counter.png)

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <!-- CSS only -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+
+    <!-- JS, Popper.js, and jQuery -->
+    <style>
+      .special {
+        margin-top: 20%;
+        text-align: center;
+        height: 50px;
+        line-height: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { createRoot } = ReactDOM;
+      const { useState, useEffect, useReducer } = React;
+      const container = document.getElementById("root");
+      const root = createRoot(container);
+
+      const ADD = "ADD";
+      const MULT = "MULT";
+      const SET_NUMBER = "SET_NUMBER";
+
+      const initialState = {
+        number1: "",
+        number2: "",
+        total: 0,
+        message: "",
+      };
+
+      const reducer = (state, action) => {
+        switch (action.type) {
+          case SET_NUMBER:
+            const { name, value } = action;
+
+            return {
+              ...state,
+              total : 0,
+              [name]: value, // les crochets permettent d'interpréter la valeur par la clé.
+            };
+          case ADD:
+            
+
+            return {
+                ...state,
+                total : parseFloat(state.number1) + parseFloat(state.number2),
+            };
+          case MULT:
+
+            return { 
+                ...state,
+                total : parseFloat(state.number1) * parseFloat(state.number2),
+             };
+          default:
+            return state;
+        }
+      };
+
+      function Calculator(props) {
+        const [state, dispatch] = useReducer(reducer, initialState);
+        const { total, number1, number2 } = state;
+
+        // il faut contrôler la saisie des valeurs dans le formualaire c'est une bonne pratique
+        // ne laissez pas le DOM contrôler les choses, c'est React qui doit contrôler les interactions avec ces éléments
+        function handleChange(e) {
+          const { value, name } = e.target;
+          dispatch({ type: SET_NUMBER, name: name, value });
+        }
+
+        return (
+          <div className="container ">
+            <div>
+              <input type="number" onChange={handleChange} name="number1" />
+            </div>
+            <div>
+              <input type="number" onChange={handleChange} name="number2" />
+            </div>
+            <button onClick={() => dispatch({type: ADD})}>ADD</button>
+            <button onClick={() => dispatch({type: MULT})}>MULT</button>
+            <p>{total}</p>
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <div>
+            <Calculator />
+          </div>
+        );
+      }
+
+      root.render(<App />);
+    </script>
+  </body>
+</html>
