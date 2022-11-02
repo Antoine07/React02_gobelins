@@ -65,3 +65,57 @@ Avec typescript vous avez un fichier de configuration pour typescript propre
   }
 }
 ```
+
+## TP 01 (révision middleware)
+
+1. Partie 1 createSlice / counter
+
+Remarque avant de commencer : c'est en option, mais vous pouvez utiliser TypeScript (+1 point de bonus) pour ce TP.
+
+Dans ce but vous pouvez pour le TP utilisez l'une des commandes suivante au choix ?
+
+```bash
+npx create-react-app counter --template typescript
+```
+
+```bash
+npx create-react-app counter 
+```
+
+Sans oublier les autres dépendances nécessaires à votre projet 
+
+```bash
+npm install @reduxjs/toolkit react-redux
+```
+
+Créez un compteur qui s'incrémente de manière aléatoire (incrément entre 1 et 10) à l'aide d'un bouton en page d'accueil, utilisez **createSlice** pour la gestion du reducer associé à l'état de ce dernier.
+
+Aidez-vous de la documentation suivante, pour l'implémentation de votre compteur. Elle vous guidera pour votre développement.
+
+https://redux-toolkit.js.org/tutorials/quick-start
+
+Si vous utilisez TypeScript il faudra typer éventuellement vos actions en important le type générique 
+
+```js
+import type { PayloadAction } from '@reduxjs/toolkit';
+```
+
+2. Partie middleware 
+
+Lorsque le compteur s'incrémente d'un nombre premier entre 1 et 10, à savoir : 2, 3, 5, et 7, alors une petite étoile graphique s'ajoute sous le compteur. Cette partie sera gérée à l'aide d'un middleware.
+
+## TP 02 (noté)
+
+Importez la dépendance suivante dans le projet :
+
+```js
+import { useQuery, gql } from '@apollo/client';
+``` 
+
+Et faite une requête sur votre serveur Appolo pour récupérer l'ensemble des livres.
+
+```js
+const { loading, error, data } = useQuery(GET_LOCATIONS);
+```
+
+Notez que **GET_LOCATIONS** construit la requête à faire. Utilisez loading et error pour afficher de manière conditionnelle les données dans la page.
