@@ -124,3 +124,7 @@ const { loading, error, data } = useQuery(GET_LOCATIONS);
 ```
 
 Notez que **GET_LOCATIONS** construit la requête à faire. Utilisez loading et error pour afficher de manière conditionnelle les données dans la page.
+
+Bonus 
+
+Si vous avez le temps vous pouvez créer deux pages une pour afficher les livres et les auteurs.
