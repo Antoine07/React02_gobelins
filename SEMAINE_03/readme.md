@@ -106,12 +106,11 @@ Lorsque le compteur s'incrémente d'un nombre premier entre 1 et 10, à savoir :
 
 ## TP 02 (noté)
 
-Terminez le projet avec GraphQL et React
+Terminez le projet avec GraphQL et React **data-analyst**
 
-Importez la dépendance suivante dans le projet pour effectuer la requête sur le serveur appolo (Node/Express) 
+Importez la dépendance suivante dans le projet pour effectuer la requête sur le serveur appolo (Node/Express) côté client.
 
-
-Côté React vous importez la dépendance.
+Dans React :
 
 ```js
 import { useQuery, gql } from '@apollo/client';
@@ -125,6 +124,15 @@ const { loading, error, data } = useQuery(GET_LOCATIONS);
 
 Notez que **GET_LOCATIONS** construit la requête à faire. Utilisez loading et error pour afficher de manière conditionnelle les données dans la page.
 
-Bonus 
+Bonus + 5 points 
 
-Si vous avez le temps vous pouvez créer deux pages une pour afficher les livres et les auteurs.
+1. Si vous avez le temps vous pouvez créer deux pages : une pour afficher les livres et les auteurs.
+
+2. Vous allez maintenant faire un fake waiting à l'aide d'une promesse côté serveur. Il faudra alors consommer les données de votre API en considérant l'asynchronisme dans votre Redux/toolkit.
+
+Dans Redux/toolkit on utilisera les deux importants suivants 
+
+```js
+createAsyncThunk
+createSlice
+```
