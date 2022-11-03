@@ -79,10 +79,10 @@ npx create-react-app counter --template typescript
 ```
 
 ```bash
-npx create-react-app counter 
+npx create-react-app counter
 ```
 
-Sans oublier les autres dépendances nécessaires à votre projet 
+Sans oublier les autres dépendances nécessaires à votre projet
 
 ```bash
 npm install @reduxjs/toolkit react-redux
@@ -94,13 +94,13 @@ Aidez-vous de la documentation suivante, pour l'implémentation de votre compteu
 
 https://redux-toolkit.js.org/tutorials/quick-start
 
-Si vous utilisez TypeScript il faudra typer éventuellement vos actions en important le type générique 
+Si vous utilisez TypeScript il faudra typer éventuellement vos actions en important le type générique
 
 ```js
-import type { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from "@reduxjs/toolkit";
 ```
 
-2. Partie middleware 
+2. Partie middleware
 
 Lorsque le compteur s'incrémente d'un nombre premier entre 1 et 10, à savoir : 2, 3, 5, et 7, alors une petite étoile graphique s'ajoute sous le compteur. Cette partie sera gérée à l'aide d'un middleware.
 
@@ -113,8 +113,8 @@ Importez la dépendance suivante dans le projet pour effectuer la requête sur l
 Dans React :
 
 ```js
-import { useQuery, gql } from '@apollo/client';
-``` 
+import { useQuery, gql } from "@apollo/client";
+```
 
 Et faite une requête sur votre serveur Appolo pour récupérer l'ensemble des livres.
 
@@ -124,15 +124,42 @@ const { loading, error, data } = useQuery(GET_LOCATIONS);
 
 Notez que **GET_LOCATIONS** construit la requête à faire. Utilisez loading et error pour afficher de manière conditionnelle les données dans la page.
 
-Bonus + 5 points 
+Bonus + 5 points
 
 1. Si vous avez le temps vous pouvez créer deux pages : une pour afficher les livres et les auteurs.
 
 2. Vous allez maintenant faire un fake waiting à l'aide d'une promesse côté serveur. Il faudra alors consommer les données de votre API en considérant l'asynchronisme dans votre Redux/toolkit.
 
-Dans Redux/toolkit on utilisera les deux importants suivants 
+Dans Redux/toolkit on utilisera les deux importants suivants
 
 ```js
-createAsyncThunk
-createSlice
+createAsyncThunk;
+createSlice;
 ```
+
+Vous pouvez construire une méthode fetch comme suit pour récupérer les données dans React à l'aide d'axios.
+
+```js
+
+const fetchFoo =  async (): Promise<any[]> => {
+    const response = await axios("http://localhost:4000", {
+      method: 'post',
+      data: {
+        query: `
+        query foo {
+
+        }
+      `
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+```
+Notez que bien que createAsyncThunk permet de gérer dans extraReducers les états de la promesse ci-dessus.
+
+- pending
+
+- fulfilled
+
+- rejected
